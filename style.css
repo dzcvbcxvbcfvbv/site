@@ -1,0 +1,399 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-red: #ff0000;
+    --dark-red: #5a0000;
+    --neon-red: #ff003c;
+    --bg-color: #000000;
+    --text-main: #ffffff;
+    --text-muted: #888888;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--main-red);
+    font-family: 'Fira Code', monospace;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+.text-red { color: var(--main-red); }
+.text-glow { color: var(--main-red); text-shadow: 0 0 10px var(--main-red); }
+.blink-text { animation: blink 1s infinite; }
+.blink-slow { animation: blink 2s infinite; }
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* GİRİŞ TERMİNALİ */
+#enter-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: crosshair;
+    transition: opacity 0.5s ease-out;
+}
+
+.crt-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.terminal {
+    width: 80%;
+    max-width: 800px;
+    color: var(--main-red);
+    font-size: 1.2rem;
+    text-shadow: 0 0 5px var(--main-red);
+}
+
+#click-to-enter {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ANA EKRAN */
+.grid-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -2;
+    opacity: 0.3;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+#matrix {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    opacity: 0.25;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    z-index: 10;
+    position: relative;
+}
+
+/* HEADER */
+.header-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.glitch-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--text-main);
+    text-shadow: 2px 2px 10px var(--main-red);
+    position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent;
+}
+
+.glitch-text::before {
+    left: 3px;
+    text-shadow: -2px 0 blue;
+    animation: glitch-bot 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -3px;
+    text-shadow: 2px 0 red;
+    animation: glitch-top 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-bot {
+    0% { clip: rect(20px, 9999px, 85px, 0); }
+    20% { clip: rect(10px, 9999px, 45px, 0); }
+    40% { clip: rect(60px, 9999px, 20px, 0); }
+    60% { clip: rect(80px, 9999px, 90px, 0); }
+    80% { clip: rect(40px, 9999px, 10px, 0); }
+    100% { clip: rect(30px, 9999px, 60px, 0); }
+}
+
+@keyframes glitch-top {
+    0% { clip: rect(15px, 9999px, 90px, 0); }
+    20% { clip: rect(70px, 9999px, 30px, 0); }
+    40% { clip: rect(40px, 9999px, 50px, 0); }
+    60% { clip: rect(90px, 9999px, 10px, 0); }
+    80% { clip: rect(20px, 9999px, 80px, 0); }
+    100% { clip: rect(50px, 9999px, 40px, 0); }
+}
+
+.typewriter-box {
+    margin-top: 1rem;
+    background: rgba(255,0,0,0.05);
+    padding: 1rem;
+    border-left: 3px solid var(--main-red);
+    text-align: left;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* BUTTON */
+.discord-server-btn { margin-bottom: 4rem; }
+
+.cyber-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 40px;
+    background: rgba(10, 0, 0, 0.8);
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    border: 1px solid var(--main-red);
+    box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.cyber-btn:hover {
+    background: var(--main-red);
+    color: #000;
+    box-shadow: 0 0 25px var(--main-red);
+}
+
+.cyber-btn-tag {
+    position: absolute;
+    top: -10px; right: 10px;
+    background: var(--main-red);
+    color: #000;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    font-family: 'Fira Code', monospace;
+}
+
+/* EKİP BÖLÜMÜ */
+.team-section { width: 100%; max-width: 1200px; }
+
+.team-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-main);
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+.red-bracket { color: var(--main-red); }
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+/* KART TASARIMI */
+.cyber-card {
+    background: rgba(5, 5, 5, 0.95);
+    border: 1px solid var(--dark-red);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.cyber-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+    border-color: var(--main-red);
+}
+
+.card-banner {
+    width: 100%;
+    height: 100px;
+    background-color: #111;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid var(--dark-red);
+    position: relative;
+}
+.card-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 50%;
+    background: linear-gradient(transparent, rgba(5,5,5,1));
+}
+
+.card-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    position: relative;
+    top: -40px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    margin-bottom: 1rem;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+}
+
+.discord-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 2px solid var(--main-red);
+    object-fit: cover;
+    background-color: #000;
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3px solid rgba(5, 5, 5, 1);
+    transition: background-color 0.3s;
+}
+.dnd { background-color: #f04747; box-shadow: 0 0 5px #f04747; }
+.online { background-color: #43b581; box-shadow: 0 0 5px #43b581; }
+.idle { background-color: #faa61a; box-shadow: 0 0 5px #faa61a; }
+.offline { background-color: #747f8d; }
+
+.profile-info { padding-bottom: 10px; }
+
+.discord-displayname {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin-bottom: 0;
+}
+
+.discord-username-small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.discord-role { font-size: 0.8rem; font-weight: bold; }
+
+/* ROZETLER */
+.badges-container {
+    display: flex;
+    gap: 6px;
+    padding: 8px 10px;
+    background: rgba(255, 0, 0, 0.05);
+    border: 1px solid rgba(255, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    min-height: 36px;
+    align-items: center;
+}
+
+.badge-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.badge-text {
+    font-size: 9px;
+    padding: 2px 5px;
+    border: 1px solid var(--main-red);
+    border-radius: 3px;
+    color: var(--main-red);
+    letter-spacing: 1px;
+}
+
+.badge-clan {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    padding: 2px 6px;
+    background: rgba(255, 0, 0, 0.15);
+    border: 1px solid var(--main-red);
+    border-radius: 3px;
+    color: var(--text-main);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.badge-clan img {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed rgba(255,0,0,0.2);
+    padding-bottom: 5px;
+}
+.detail-label { color: var(--text-muted); }
+
+.status-online { color: #43b581; }
+.status-idle { color: #faa61a; }
+.status-dnd { color: #f04747; }
+.status-offline { color: #747f8d; }
+
+@media (max-width: 768px) {
+    .glitch-text { font-size: 3rem; }
+    .card-content { top: -30px; }
+    .avatar-wrapper { width: 70px; height: 70px; }
+}
